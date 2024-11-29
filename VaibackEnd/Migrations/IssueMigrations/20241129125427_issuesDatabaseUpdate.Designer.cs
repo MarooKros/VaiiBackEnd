@@ -9,10 +9,10 @@ using VaibackEnd.Data;
 
 #nullable disable
 
-namespace VaibackEnd.Migrations.IssuesMigration
+namespace VaibackEnd.Migrations.IssueMigrations
 {
     [DbContext(typeof(IssueDbContext))]
-    [Migration("20241129121157_issuesDatabaseUpdate")]
+    [Migration("20241129125427_issuesDatabaseUpdate")]
     partial class issuesDatabaseUpdate
     {
         /// <inheritdoc />

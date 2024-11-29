@@ -4,23 +4,45 @@ using VaibackEnd.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<IssueDbContext>(
     o => o.UseSqlServer(
         builder.Configuration.GetConnectionString("SqlServer")
-        )
-    );
+    )
+);
 builder.Services.AddDbContext<UserDbContext>(
     u => u.UseSqlServer(
         builder.Configuration.GetConnectionString("SqlServer")
-        )
-    );
+    )
+);
+builder.Services.AddDbContext<PostDbContext>(
+    p => p.UseSqlServer(
+        builder.Configuration.GetConnectionString("SqlServer")
+    )
+);
+
+builder.Services.AddScoped<PostService>();
 
 var app = builder.Build();
+
+// Apply migrations automatically for all DbContexts
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var dbContexts = new DbContext[]
+    {
+        services.GetRequiredService<IssueDbContext>(),
+        services.GetRequiredService<UserDbContext>(),
+        services.GetRequiredService<PostDbContext>()
+    };
+
+    foreach (var context in dbContexts)
+    {
+        context.Database.Migrate();
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -30,9 +52,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

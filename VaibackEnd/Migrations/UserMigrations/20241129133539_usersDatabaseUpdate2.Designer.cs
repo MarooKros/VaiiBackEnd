@@ -11,8 +11,8 @@ using VaibackEnd.Data;
 namespace VaibackEnd.Migrations.UserMigrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20241129121231_issuesDatabaseUpdate")]
-    partial class issuesDatabaseUpdate
+    [Migration("20241129133539_usersDatabaseUpdate2")]
+    partial class usersDatabaseUpdate2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,7 +36,7 @@ namespace VaibackEnd.Migrations.UserMigrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("password")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
