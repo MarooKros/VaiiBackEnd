@@ -12,8 +12,8 @@ using VaibackEnd.Data;
 namespace VaibackEnd.Data.Migrations
 {
     [DbContext(typeof(IssueDbContext))]
-    [Migration("20241129091643_createdatabase")]
-    partial class createdatabase
+    [Migration("20241129095132_updatedatabase")]
+    partial class updatedatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

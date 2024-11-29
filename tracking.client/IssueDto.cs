@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace VaibackEnd.Models
+﻿namespace tracking.client
 {
-    public class Issue
+    internal class IssueDto
     {
         /// <summary>
         /// Id.
@@ -12,15 +10,13 @@ namespace VaibackEnd.Models
         /// <summary>
         /// Title.
         /// </summary>
-        [Required]
-        public required string Title { get; set; }
+        public string Title { get; set; }
 
         /// <summary>
         /// Description.
         /// </summary>
-        [Required]
-        public required string Description { get; set; }
-        
+        public string Description { get; set; }
+
         /// <summary>
         /// Priority.
         /// </summary>
@@ -42,7 +38,8 @@ namespace VaibackEnd.Models
         public DateTime? Completed { get; set; }
     }
 
-    public enum Priority {
+    public enum Priority
+    {
         Low, Medium, High
     }
 
