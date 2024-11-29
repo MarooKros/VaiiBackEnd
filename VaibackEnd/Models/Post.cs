@@ -5,7 +5,9 @@ public class Post
     /// <summary>
     /// Id.
     /// </summary>
-    public int Id { get; set; }
+    public required int Id { get; set; }
+
+    public required int UserId { get; set; }
 
     /// <summary>
     /// User.

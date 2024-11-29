@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using VaibackEnd.Data;
 
 #nullable disable
 
@@ -71,7 +70,7 @@ namespace VaibackEnd.Migrations.PostMigrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("VaibackEnd.Models.User", b =>
@@ -92,7 +91,7 @@ namespace VaibackEnd.Migrations.PostMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users", "dbo");
                 });
 
             modelBuilder.Entity("Post", b =>

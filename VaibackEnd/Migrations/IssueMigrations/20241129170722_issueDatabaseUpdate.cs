@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace VaibackEnd.Migrations.IssueMigrations
 {
     /// <inheritdoc />
-    public partial class issuesDatabaseUpdate : Migration
+    public partial class issueDatabaseUpdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
