@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace VaibackEnd.Data.Migrations
+namespace VaibackEnd.Migrations.IssuesMigration
 {
     /// <inheritdoc />
-    public partial class updatedatabase : Migration
+    public partial class issuesDatabaseUpdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
