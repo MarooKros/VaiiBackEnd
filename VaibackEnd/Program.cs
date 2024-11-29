@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using VaibackEnd.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,11 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<IssueDbContext>(
-    o => o.UseSqlServer(
-        builder.Configuration.GetConnectionString("SqlServer")
-    )
-);
 builder.Services.AddDbContext<UserDbContext>(
     u => u.UseSqlServer(
         builder.Configuration.GetConnectionString("SqlServer")
@@ -33,7 +27,6 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var dbContexts = new DbContext[]
     {
-        services.GetRequiredService<IssueDbContext>(),
         services.GetRequiredService<UserDbContext>(),
         services.GetRequiredService<PostDbContext>()
     };
