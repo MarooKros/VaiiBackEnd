@@ -1,0 +1,6 @@
+@VaibackEnd_HostAddress = http://localhost:5270
+
+GET {{VaibackEnd_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
