@@ -10,6 +10,8 @@ client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("app
 
 HttpResponseMessage IssueResponse = await client.GetAsync("api/issue");
 HttpResponseMessage UserResponse = await client.GetAsync("api/user");
+HttpResponseMessage PostResponse = await client.GetAsync("api/post");
+PostResponse.EnsureSuccessStatusCode();
 UserResponse.EnsureSuccessStatusCode();
 IssueResponse.EnsureSuccessStatusCode();
 
@@ -37,6 +39,19 @@ if (UserResponse.IsSuccessStatusCode)
 else
 {
     Console.WriteLine("Problem with user");
+}
+
+if (PostResponse.IsSuccessStatusCode)
+{
+    var posts = await PostResponse.Content.ReadFromJsonAsync<IEnumerable<PostDto>>();
+    foreach (var post in posts)
+    {
+        Console.WriteLine(post.Id);
+    }
+}
+else
+{
+    Console.WriteLine("Problem with post");
 }
 
 Console.ReadLine();

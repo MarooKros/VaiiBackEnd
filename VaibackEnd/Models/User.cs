@@ -19,6 +19,6 @@ namespace VaibackEnd.Models
         /// password
         /// </summary>
         [Required]
-        public required string password { get; set; }
+        public required string Password { get; set; }
     }
 }

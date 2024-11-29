@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace VaibackEnd.Migrations.IssuesMigration
+namespace VaibackEnd.Migrations.IssueMigrations
 {
     /// <inheritdoc />
     public partial class issuesDatabaseUpdate : Migration

@@ -8,7 +8,7 @@ using VaibackEnd.Data;
 
 #nullable disable
 
-namespace VaibackEnd.Migrations.IssuesMigration
+namespace VaibackEnd.Migrations.IssueMigrations
 {
     [DbContext(typeof(IssueDbContext))]
     partial class IssueDbContextModelSnapshot : ModelSnapshot
