@@ -1,6 +1,5 @@
-﻿using VaibackEnd.Models;
-using VaibackEnd.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using VaibackEnd.Models;
 
 public class PostService
 {
@@ -62,7 +61,7 @@ public class PostService
             return false;
         }
 
-        _postContext.RemoveRange(entities: post.Comments);
+        _postContext.RemoveRange(post.Comments);
         _postContext.Posts.Remove(post);
         _postContext.SaveChanges();
         return true;
@@ -85,6 +84,7 @@ public class PostService
         _postContext.Entry(user).State = EntityState.Unchanged;
 
         comment.User = user;
+        comment.PostId = postId;
         if (post.Comments == null)
         {
             post.Comments = new List<Comment> { comment };
@@ -94,6 +94,19 @@ public class PostService
             post.Comments.Add(comment);
         }
 
+        _postContext.SaveChanges();
+        return true;
+    }
+
+    public bool DeleteCommentFromPost(int commentId)
+    {
+        var comment = _postContext.Comments.FirstOrDefault(c => c.Id == commentId);
+        if (comment == null)
+        {
+            return false;
+        }
+
+        _postContext.Comments.Remove(comment);
         _postContext.SaveChanges();
         return true;
     }

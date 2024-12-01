@@ -17,19 +17,17 @@ namespace VaibackEnd.Controllers
         /// <summary>
         /// Get all posts.
         /// </summary>
-        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet("getPosts")]
         public ActionResult<IEnumerable<Post>> GetPosts()
-        {
-            return Ok(_postService.GetPosts());
-        }
+            => Ok(_postService.GetPosts());
 
         /// <summary>
         /// Get a post by Id.
         /// </summary>
-        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("getPostById")]
         public ActionResult<Post> GetPost(int id)
         {
             var post = _postService.GetPostById(id);
@@ -43,9 +41,9 @@ namespace VaibackEnd.Controllers
         /// <summary>
         /// Create a new post.
         /// </summary>
-        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPost("createPost")]
         public ActionResult<Post> CreatePost([FromBody] Post post)
         {
             if (!ModelState.IsValid)
@@ -60,10 +58,10 @@ namespace VaibackEnd.Controllers
         /// <summary>
         /// Update an existing post.
         /// </summary>
-        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpPut("editPost")]
         public ActionResult UpdatePost(int id, [FromBody] Post post)
         {
             if (!ModelState.IsValid)
@@ -82,9 +80,9 @@ namespace VaibackEnd.Controllers
         /// <summary>
         /// Add a comment to a post.
         /// </summary>
-        [HttpPost("{postId}/comments")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpPost("addCommentToPost")]
         public ActionResult AddCommentToPost(int postId, [FromBody] Comment comment)
         {
             var success = _postService.AddCommentToPost(postId, comment);
@@ -98,12 +96,31 @@ namespace VaibackEnd.Controllers
         /// <summary>
         /// Delete a post by Id.
         /// </summary>
-        [HttpDelete("{id}")]
+        /// <param name="id"></param>
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpDelete("deletePost")]
         public ActionResult DeletePost(int id)
         {
             var success = _postService.DeletePost(id);
+            if (!success)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Delete a comment by Id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpDelete("deleteComent")]
+        public ActionResult DeleteComment(int id)
+        { 
+            var success = _postService.DeleteCommentFromPost(id);
             if (!success)
             {
                 return NotFound();

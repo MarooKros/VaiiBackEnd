@@ -15,7 +15,8 @@ namespace VaibackEnd.Controllers
         /// <summary>
         /// Returns list of Users.
         /// </summary>
-        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet("getUsers")]
         public async Task<IEnumerable<User>> GetUsers()
             => await _context.Users.ToListAsync();
 
@@ -23,9 +24,9 @@ namespace VaibackEnd.Controllers
         /// Returns user by Id.
         /// </summary>
         /// <param name="id"></param>
-        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("getUserById")]
         public async Task<IActionResult> GetUserById(int id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -37,7 +38,7 @@ namespace VaibackEnd.Controllers
         /// </summary>
         /// <param name="user"></param>
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [HttpPost]
+        [HttpPost("createUser")]   
         public async Task<IActionResult> CreateUser(User user)
         {
             await _context.Users.AddAsync(user);
@@ -53,7 +54,7 @@ namespace VaibackEnd.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [HttpPut("{id}")]
+        [HttpPut("editUser")]
         public async Task<IActionResult> UpdateUser(int id, User user)
         {
             if (id != user.Id)
@@ -73,7 +74,7 @@ namespace VaibackEnd.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [HttpDelete("{id}")]
+        [HttpDelete("deleteUser")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var userToDelete = await _context.Users.FindAsync(id);
