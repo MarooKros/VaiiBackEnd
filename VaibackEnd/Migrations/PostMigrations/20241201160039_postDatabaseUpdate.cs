@@ -10,11 +10,9 @@ namespace VaibackEnd.Migrations.PostMigrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            // Ensure the schema exists (if needed)
             migrationBuilder.EnsureSchema(
                 name: "dbo");
 
-            // Create the Posts table
             migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
@@ -34,10 +32,9 @@ namespace VaibackEnd.Migrations.PostMigrations
                         principalSchema: "dbo",
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
-            // Create the Comments table
             migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
@@ -45,8 +42,8 @@ namespace VaibackEnd.Migrations.PostMigrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PostId = table.Column<int>(type: "int", nullable: true)
+                    PostId = table.Column<int>(type: "int", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,14 +52,15 @@ namespace VaibackEnd.Migrations.PostMigrations
                         name: "FK_Comments_Posts_PostId",
                         column: x => x.PostId,
                         principalTable: "Posts",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Comments_Users_UserId",
                         column: x => x.UserId,
                         principalSchema: "dbo",
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(

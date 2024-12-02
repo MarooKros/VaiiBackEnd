@@ -13,6 +13,11 @@
         public required int UserId { get; set; }
 
         /// <summary>
+        /// PostId
+        /// </summary>
+        public required int PostId { get; set; }
+
+        /// <summary>
         /// User.
         /// </summary>
         public required User User { get; set; }

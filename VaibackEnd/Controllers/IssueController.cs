@@ -16,7 +16,7 @@ namespace VaibackEnd.Controllers
         /// <summary>
         /// Returns list of Issues.
         /// </summary>
-        [HttpGet]
+        [HttpGet("getIssues")]
         public async Task<IEnumerable<Issue>> GetIssues()
             => await _context.Issues.ToListAsync();
 
@@ -24,9 +24,9 @@ namespace VaibackEnd.Controllers
         /// Returns issue by Id.
         /// </summary>
         /// <param name="id"></param>
-        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("getIssueById")]
         public async Task<IActionResult> GetIssueById(int id)
         {
             var issue = _context.Issues.FindAsync(id);
@@ -38,7 +38,7 @@ namespace VaibackEnd.Controllers
         /// </summary>
         /// <param name="issue"></param>
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [HttpPost]
+        [HttpPost("createIssue")]
         public async Task<IActionResult> CreateIssue(Issue issue)
         {
             await _context.Issues.AddAsync(issue);
@@ -54,7 +54,7 @@ namespace VaibackEnd.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [HttpPut("{id}")]
+        [HttpPut("editIssue")]
         public async Task<IActionResult> UpdateIssue(int id, Issue issue)
         {
             if (id != issue.Id)
@@ -74,7 +74,7 @@ namespace VaibackEnd.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [HttpDelete("{id}")]
+        [HttpDelete("deleteIssue")]
         public async Task<IActionResult> DeleteIssue(int id)
         {
             var issueToDelete = await _context.Issues.FindAsync(id);

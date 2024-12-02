@@ -4,15 +4,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using VaibackEnd.Data;
 
 #nullable disable
 
 namespace VaibackEnd.Migrations.UserMigrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20241129170658_userDatabaseUpdate")]
-    partial class userDatabaseUpdate
+    [Migration("20241201160407_UserDatabaseUpdate")]
+    partial class UserDatabaseUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

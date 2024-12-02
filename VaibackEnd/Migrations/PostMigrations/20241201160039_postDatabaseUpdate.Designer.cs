@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace VaibackEnd.Migrations.PostMigrations
 {
     [DbContext(typeof(PostDbContext))]
-    [Migration("20241129171442_postDatabaseUpdate")]
+    [Migration("20241201160039_postDatabaseUpdate")]
     partial class postDatabaseUpdate
     {
         /// <inheritdoc />
@@ -57,7 +57,7 @@ namespace VaibackEnd.Migrations.PostMigrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("PostId")
+                    b.Property<int>("PostId")
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
@@ -112,7 +112,9 @@ namespace VaibackEnd.Migrations.PostMigrations
                 {
                     b.HasOne("Post", null)
                         .WithMany("Comments")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("VaibackEnd.Models.User", "User")
                         .WithMany()
