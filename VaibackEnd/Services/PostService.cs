@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VaibackEnd.Models;
+using System.ComponentModel.DataAnnotations;
 
 public class PostService
 {
@@ -24,6 +25,8 @@ public class PostService
 
     public Post CreatePost(Post post)
     {
+        ValidatePost(post);
+
         var user = _userContext.Users.Find(post.User.Id);
         if (user == null)
         {
@@ -33,6 +36,7 @@ public class PostService
         _postContext.Entry(user).State = EntityState.Unchanged;
 
         post.User = user;
+        post.Comments = null;
         _postContext.Posts.Add(post);
         _postContext.SaveChanges();
         return post;
@@ -40,6 +44,8 @@ public class PostService
 
     public bool UpdatePost(int id, Post updatedPost)
     {
+        ValidatePost(updatedPost);
+
         var post = _postContext.Posts.FirstOrDefault(p => p.Id == id);
         if (post == null)
         {
@@ -69,6 +75,8 @@ public class PostService
 
     public bool AddCommentToPost(int postId, Comment comment)
     {
+        ValidateComment(comment);
+
         var post = _postContext.Posts.Include(p => p.Comments).FirstOrDefault(p => p.Id == postId);
         if (post == null)
         {
@@ -109,5 +117,17 @@ public class PostService
         _postContext.Comments.Remove(comment);
         _postContext.SaveChanges();
         return true;
+    }
+
+    private void ValidatePost(Post post)
+    {
+        var validationContext = new ValidationContext(post);
+        Validator.ValidateObject(post, validationContext, validateAllProperties: true);
+    }
+
+    private void ValidateComment(Comment comment)
+    {
+        var validationContext = new ValidationContext(comment);
+        Validator.ValidateObject(comment, validationContext, validateAllProperties: true);
     }
 }

@@ -17,11 +17,16 @@ builder.Services.AddDbContext<PostDbContext>(
         builder.Configuration.GetConnectionString("SqlServer")
     )
 );
+builder.Services.AddDbContext<IssueDbContext>(
+    p => p.UseSqlServer(
+        builder.Configuration.GetConnectionString("SqlServer")
+    )
+);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:8080")
+        policy.WithOrigins("http://localhost:4200")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -38,7 +43,8 @@ using (var scope = app.Services.CreateScope())
     var dbContexts = new DbContext[]
     {
         services.GetRequiredService<UserDbContext>(),
-        services.GetRequiredService<PostDbContext>()
+        services.GetRequiredService<PostDbContext>(),
+        services.GetRequiredService<IssueDbContext>()
     };
 
     foreach (var context in dbContexts)
@@ -58,4 +64,6 @@ app.UseCors("AllowFrontend");
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+app.UseDefaultFiles();
+app.UseStaticFiles();
 app.Run();

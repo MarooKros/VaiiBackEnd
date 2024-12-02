@@ -54,7 +54,7 @@ namespace VaibackEnd.Migrations.PostMigrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("PostId")
+                    b.Property<int>("PostId")
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
@@ -109,7 +109,9 @@ namespace VaibackEnd.Migrations.PostMigrations
                 {
                     b.HasOne("Post", null)
                         .WithMany("Comments")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("VaibackEnd.Models.User", "User")
                         .WithMany()

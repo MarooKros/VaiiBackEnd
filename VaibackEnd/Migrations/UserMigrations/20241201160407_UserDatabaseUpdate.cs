@@ -5,7 +5,7 @@
 namespace VaibackEnd.Migrations.UserMigrations
 {
     /// <inheritdoc />
-    public partial class userDatabaseUpdate : Migration
+    public partial class UserDatabaseUpdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

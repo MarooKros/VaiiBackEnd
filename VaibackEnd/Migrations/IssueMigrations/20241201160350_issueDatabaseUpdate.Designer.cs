@@ -12,7 +12,7 @@ using VaibackEnd.Data;
 namespace VaibackEnd.Migrations.IssueMigrations
 {
     [DbContext(typeof(IssueDbContext))]
-    [Migration("20241129170722_issueDatabaseUpdate")]
+    [Migration("20241201160350_issueDatabaseUpdate")]
     partial class issueDatabaseUpdate
     {
         /// <inheritdoc />

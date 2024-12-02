@@ -55,6 +55,7 @@ namespace VaibackEnd.Controllers
             return CreatedAtAction(nameof(GetPost), new { id = createdPost.Id }, createdPost);
         }
 
+
         /// <summary>
         /// Update an existing post.
         /// </summary>
@@ -117,9 +118,9 @@ namespace VaibackEnd.Controllers
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpDelete("deleteComent")]
+        [HttpDelete("deleteComment")]
         public ActionResult DeleteComment(int id)
-        { 
+        {
             var success = _postService.DeleteCommentFromPost(id);
             if (!success)
             {
