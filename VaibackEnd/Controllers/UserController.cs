@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using VaibackEnd.Data;
 using VaibackEnd.Models;
+using System.Text.RegularExpressions;
 
 namespace VaibackEnd.Controllers
 {
@@ -51,6 +52,11 @@ namespace VaibackEnd.Controllers
             if (existingUser != null)
             {
                 return BadRequest("Username already exists.");
+            }
+
+            if (!IsValidPassword(user.Password))
+            {
+                return BadRequest("Password must be at least 8 characters long and contain at least one uppercase letter.");
             }
 
             await _context.Users.AddAsync(user);
@@ -112,6 +118,11 @@ namespace VaibackEnd.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        private bool IsValidPassword(string password)
+        {
+            return password.Length >= 8 && Regex.IsMatch(password, @"[A-Z]");
         }
     }
 }
