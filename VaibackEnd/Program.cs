@@ -22,6 +22,11 @@ builder.Services.AddDbContext<IssueDbContext>(
         builder.Configuration.GetConnectionString("SqlServer")
     )
 );
+builder.Services.AddDbContext<LogginDbContext>(
+    l => l.UseSqlServer(
+        builder.Configuration.GetConnectionString("SqlServer")
+    )
+);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -33,10 +38,10 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<PostService>();
+builder.Services.AddScoped<LogginService>();
 
 var app = builder.Build();
 
-// Apply migrations automatically for all DbContexts
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -44,7 +49,8 @@ using (var scope = app.Services.CreateScope())
     {
         services.GetRequiredService<UserDbContext>(),
         services.GetRequiredService<PostDbContext>(),
-        services.GetRequiredService<IssueDbContext>()
+        services.GetRequiredService<IssueDbContext>(),
+        services.GetRequiredService<LogginDbContext>()
     };
 
     foreach (var context in dbContexts)
