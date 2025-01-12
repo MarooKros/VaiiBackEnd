@@ -1,15 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-using VaibackEnd.Data;
+﻿using VaibackEnd.Data;
 using VaibackEnd.Models;
+using VaibackEnd.Services;
 
 public class LogginService
 {
     private readonly LogginDbContext _logginContext;
+    private readonly HTMLSanitizer _htmlSanitizer;
     private static Loggin? _loggedInUser;
 
-    public LogginService(LogginDbContext logginContext)
+    public LogginService(LogginDbContext logginContext, HTMLSanitizer htmlSanitizer)
     {
         _logginContext = logginContext;
+        _htmlSanitizer = htmlSanitizer;
     }
 
     public Loggin? GetLoggedInUser()
@@ -23,6 +25,9 @@ public class LogginService
         {
             throw new Exception("A user is already logged in");
         }
+
+        user.Name = _htmlSanitizer.Sanitize(user.Name);
+        user.Password = _htmlSanitizer.Sanitize(user.Password);
 
         var loggin = new Loggin { user = user };
         _loggedInUser = loggin;

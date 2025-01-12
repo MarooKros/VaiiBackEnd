@@ -7,10 +7,12 @@ namespace VaibackEnd.Services
     public class PictureService
     {
         private readonly PictureDbContext _context;
+        private readonly HTMLSanitizer _htmlSanitizer;
 
-        public PictureService(PictureDbContext context)
+        public PictureService(PictureDbContext context, HTMLSanitizer htmlSanitizer)
         {
             _context = context;
+            _htmlSanitizer = htmlSanitizer;
         }
 
         public async Task<Picture> CreatePictureAsync(Picture picture)
@@ -22,6 +24,7 @@ namespace VaibackEnd.Services
             }
 
             picture.User = existingUser;
+            picture.Img = _htmlSanitizer.Sanitize(picture.Img);
             _context.Pictures.Add(picture);
             await _context.SaveChangesAsync();
             return picture;
