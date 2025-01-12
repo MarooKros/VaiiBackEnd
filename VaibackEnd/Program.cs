@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using VaibackEnd.Data;
+using VaibackEnd.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,11 @@ builder.Services.AddDbContext<LogginDbContext>(
         builder.Configuration.GetConnectionString("SqlServer")
     )
 );
+builder.Services.AddDbContext<PictureDbContext>(
+    p => p.UseSqlServer(
+        builder.Configuration.GetConnectionString("SqlServer")
+        )
+    );
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -39,6 +45,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<PostService>();
 builder.Services.AddScoped<LogginService>();
+builder.Services.AddScoped<PictureService>();
 
 var app = builder.Build();
 
@@ -50,7 +57,8 @@ using (var scope = app.Services.CreateScope())
         services.GetRequiredService<UserDbContext>(),
         services.GetRequiredService<PostDbContext>(),
         services.GetRequiredService<IssueDbContext>(),
-        services.GetRequiredService<LogginDbContext>()
+        services.GetRequiredService<LogginDbContext>(),
+        services.GetRequiredService<PictureDbContext>()
     };
 
     foreach (var context in dbContexts)
