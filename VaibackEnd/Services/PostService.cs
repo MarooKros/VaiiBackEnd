@@ -1,16 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VaibackEnd.Models;
 using System.ComponentModel.DataAnnotations;
+using VaibackEnd.Services;
 
 public class PostService
 {
     private readonly PostDbContext _postContext;
     private readonly UserDbContext _userContext;
+    private readonly HTMLSanitizer _htmlSanitizer;
 
-    public PostService(PostDbContext postContext, UserDbContext userContext)
+    public PostService(PostDbContext postContext, UserDbContext userContext, HTMLSanitizer htmlSanitizer)
     {
         _postContext = postContext;
         _userContext = userContext;
+        _htmlSanitizer = htmlSanitizer;
     }
 
     public IEnumerable<Post> GetPosts()
@@ -36,6 +39,8 @@ public class PostService
         _postContext.Entry(user).State = EntityState.Unchanged;
 
         post.User = user;
+        post.Title = _htmlSanitizer.Sanitize(post.Title);
+        post.Text = _htmlSanitizer.Sanitize(post.Text);
         post.Comments = null;
         _postContext.Posts.Add(post);
         _postContext.SaveChanges();
@@ -52,8 +57,8 @@ public class PostService
             return false;
         }
 
-        post.Title = updatedPost.Title;
-        post.Text = updatedPost.Text;
+        post.Title = _htmlSanitizer.Sanitize(updatedPost.Title);
+        post.Text = _htmlSanitizer.Sanitize(updatedPost.Text);
         post.User = updatedPost.User;
         _postContext.SaveChanges();
         return true;
@@ -93,6 +98,7 @@ public class PostService
 
         comment.User = user;
         comment.PostId = postId;
+        comment.Text = _htmlSanitizer.Sanitize(comment.Text);
         if (post.Comments == null)
         {
             post.Comments = new List<Comment> { comment };

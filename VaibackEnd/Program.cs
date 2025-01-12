@@ -1,3 +1,4 @@
+using Ganss.Xss;
 using Microsoft.EntityFrameworkCore;
 using VaibackEnd.Data;
 using VaibackEnd.Services;
@@ -46,6 +47,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<PostService>();
 builder.Services.AddScoped<LogginService>();
 builder.Services.AddScoped<PictureService>();
+builder.Services.AddScoped<HtmlMessageSanitizer>();
 
 var app = builder.Build();
 
