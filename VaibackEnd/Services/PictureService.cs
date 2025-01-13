@@ -7,9 +7,9 @@ namespace VaibackEnd.Services
     public class PictureService
     {
         private readonly PictureDbContext _context;
-        private readonly HTMLSanitizer _htmlSanitizer;
+        private readonly IHTMLSanitizer _htmlSanitizer;
 
-        public PictureService(PictureDbContext context, HTMLSanitizer htmlSanitizer)
+        public PictureService(PictureDbContext context, IHTMLSanitizer htmlSanitizer)
         {
             _context = context;
             _htmlSanitizer = htmlSanitizer;

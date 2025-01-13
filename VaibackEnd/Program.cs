@@ -44,10 +44,10 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddScoped<IHTMLSanitizer, HtmlMessageSanitizer>();
 builder.Services.AddScoped<PostService>();
 builder.Services.AddScoped<LogginService>();
 builder.Services.AddScoped<PictureService>();
-builder.Services.AddScoped<HtmlMessageSanitizer>();
 
 var app = builder.Build();
 

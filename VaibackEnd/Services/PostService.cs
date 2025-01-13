@@ -7,9 +7,9 @@ public class PostService
 {
     private readonly PostDbContext _postContext;
     private readonly UserDbContext _userContext;
-    private readonly HTMLSanitizer _htmlSanitizer;
+    private readonly IHTMLSanitizer _htmlSanitizer;
 
-    public PostService(PostDbContext postContext, UserDbContext userContext, HTMLSanitizer htmlSanitizer)
+    public PostService(PostDbContext postContext, UserDbContext userContext, IHTMLSanitizer htmlSanitizer)
     {
         _postContext = postContext;
         _userContext = userContext;
@@ -98,7 +98,7 @@ public class PostService
 
         comment.User = user;
         comment.PostId = postId;
-        comment.Text = _htmlSanitizer.Sanitize(comment.Text);
+        comment.Text = comment.Text;
         if (post.Comments == null)
         {
             post.Comments = new List<Comment> { comment };
