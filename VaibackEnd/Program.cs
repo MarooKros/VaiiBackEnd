@@ -34,6 +34,11 @@ builder.Services.AddDbContext<PictureDbContext>(
         builder.Configuration.GetConnectionString("SqlServer")
         )
     );
+builder.Services.AddDbContext<RolesDbContext>(
+    r => r.UseSqlServer(
+        builder.Configuration.GetConnectionString("SqlServer")
+        )
+    );
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -48,6 +53,7 @@ builder.Services.AddScoped<IHTMLSanitizer, HtmlMessageSanitizer>();
 builder.Services.AddScoped<PostService>();
 builder.Services.AddScoped<LogginService>();
 builder.Services.AddScoped<PictureService>();
+builder.Services.AddScoped<RolesService>();
 
 var app = builder.Build();
 
@@ -60,7 +66,8 @@ using (var scope = app.Services.CreateScope())
         services.GetRequiredService<PostDbContext>(),
         services.GetRequiredService<IssueDbContext>(),
         services.GetRequiredService<LogginDbContext>(),
-        services.GetRequiredService<PictureDbContext>()
+        services.GetRequiredService<PictureDbContext>(),
+        services.GetRequiredService<RolesDbContext>()
     };
 
     foreach (var context in dbContexts)
