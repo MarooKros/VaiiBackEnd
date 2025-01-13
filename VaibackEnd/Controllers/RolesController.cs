@@ -15,6 +15,12 @@ namespace VaibackEnd.Controllers
             _rolesService = rolesService;
         }
 
+        /// <summary>
+        /// Returns current user role.
+        /// </summary>
+        /// <param name="user"></param>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("currentRole")]
         public async Task<IActionResult> GetCurrentUserRole([FromQuery] User user)
         {
@@ -28,6 +34,12 @@ namespace VaibackEnd.Controllers
             return Ok(role);
         }
 
+        /// <summary>
+        /// Eddits role for user.
+        /// </summary>
+        /// <param name="id"></param>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPut("editRole")]
         public IActionResult EditUserRole([FromBody] Roles role)
         {

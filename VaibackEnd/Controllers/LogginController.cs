@@ -14,6 +14,10 @@ namespace VaibackEnd.Controllers
             _logginService = logginService;
         }
 
+        /// <summary>
+        /// Returns logged in user.
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("getLoggedUser")]
         public ActionResult<Loggin> GetLoggedInUser()
         {
@@ -25,6 +29,12 @@ namespace VaibackEnd.Controllers
             return Ok(loggin);
         }
 
+        /// <summary>
+        /// Adds logged in user.
+        /// </summary>
+        /// <param name="user"></param>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPost("logInUser")]
         public ActionResult<Loggin> AddLoggedInUser([FromBody] User user)
         {
@@ -39,6 +49,11 @@ namespace VaibackEnd.Controllers
             }
         }
 
+        /// <summary>
+        /// Deltes logged in user.
+        /// </summary>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete("logOutUser")]
         public ActionResult DeleteLoggedInUser()
         {
