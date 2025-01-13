@@ -5,7 +5,7 @@ namespace VaibackEnd.Services
     /// <summary>
     /// Interface for user message sanitizer.
     /// </summary>
-    public interface HTMLSanitizer
+    public interface IHTMLSanitizer
     {
         /// <summary>
         /// Sanitizes the input message.
@@ -17,18 +17,18 @@ namespace VaibackEnd.Services
     /// <summary>
     /// Implementation of <see cref="HTMLSanitizer"/>.
     /// </summary>
-    public class HtmlMessageSanitizer : HtmlSanitizer, HTMLSanitizer
+    public class HtmlMessageSanitizer : HtmlSanitizer, IHTMLSanitizer
     {
         private readonly HtmlSanitizer _htmlSanitizer;
         /// <summary>
         /// Constructor.
         /// </summary>
         public HtmlMessageSanitizer()
-
         {
             _htmlSanitizer = new HtmlSanitizer();
             _htmlSanitizer.AllowedAttributes.Add("style");
             _htmlSanitizer.AllowedAttributes.Add("class");
+            _htmlSanitizer.AllowedAttributes.Add("src");
             _htmlSanitizer.AllowedCssProperties.Add("color");
             _htmlSanitizer.AllowedCssProperties.Add("background-color");
             _htmlSanitizer.AllowedTags.Add("span");

@@ -5,10 +5,10 @@ using VaibackEnd.Services;
 public class LogginService
 {
     private readonly LogginDbContext _logginContext;
-    private readonly HTMLSanitizer _htmlSanitizer;
+    private readonly IHTMLSanitizer _htmlSanitizer;
     private static Loggin? _loggedInUser;
 
-    public LogginService(LogginDbContext logginContext, HTMLSanitizer htmlSanitizer)
+    public LogginService(LogginDbContext logginContext, IHTMLSanitizer htmlSanitizer)
     {
         _logginContext = logginContext;
         _htmlSanitizer = htmlSanitizer;
