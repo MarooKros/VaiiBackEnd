@@ -11,20 +11,23 @@ namespace VaibackEnd.Models
         public int Id { get; set; }
 
         /// <summary>
-        /// User.
+        /// UserId.
         /// </summary>
         [Required]
-        public required User user { get; set; }
+        public int UserId { get; set; }
 
         /// <summary>
         /// UserRole.
         /// </summary>
-        public Role userRole { get; set; }
+        [Required]
+        public Role UserRole { get; set; }
     }
+
     /// <summary>
     /// Enum.
     /// </summary>
-    public enum Role { 
-        Visitor, user, Admin
+    public enum Role
+    {
+        Visitor, User, Admin
     }
 }

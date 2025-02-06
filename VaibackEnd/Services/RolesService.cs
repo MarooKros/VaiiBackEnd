@@ -14,23 +14,23 @@ namespace VaibackEnd.Services
 
         public Role GetCurrentUserRole(User user)
         {
-            var role = _rolesContext.Roles.FirstOrDefault(r => r.user.Id == user.Id);
-            return role?.userRole ?? Role.Visitor;
+            var role = _rolesContext.Roles.FirstOrDefault(r => r.UserId == user.Id);
+            return role?.UserRole ?? Role.Visitor;
         }
 
-        public void EditUserRole(Roles roles)
+        public void EditUserRole(int userId, Role userRole)
         {
-            var role = _rolesContext.Roles.FirstOrDefault(r => r.user.Id == roles.user.Id);
+            var role = _rolesContext.Roles.FirstOrDefault(r => r.UserId == userId);
             if (role != null)
             {
-                role.userRole = role.userRole;
+                role.UserRole = userRole;
             }
             else
             {
                 role = new Roles
                 {
-                    user = roles.user,
-                    userRole = roles.userRole
+                    UserId = userId,
+                    UserRole = userRole
                 };
                 _rolesContext.Roles.Add(role);
             }

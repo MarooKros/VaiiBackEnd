@@ -35,21 +35,22 @@ namespace VaibackEnd.Controllers
         }
 
         /// <summary>
-        /// Eddits role for user.
+        /// Edits role for user.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="userId"></param>
+        /// <param name="userRole"></param>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPut("editRole")]
-        public IActionResult EditUserRole([FromBody] Roles role)
+        public IActionResult EditUserRole([FromQuery] int userId, [FromQuery] Role userRole)
         {
-            var user = _rolesService._rolesContext.Users.Find(role.user.Id);
+            var user = _rolesService._rolesContext.Users.Find(userId);
             if (user == null)
             {
                 return NotFound("User not found");
             }
 
-            _rolesService.EditUserRole(role);
+            _rolesService.EditUserRole(userId, userRole);
             return NoContent();
         }
     }
